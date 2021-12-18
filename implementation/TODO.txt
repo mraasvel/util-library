@@ -1,0 +1,8 @@
+-- TODO --
+
+	- Make Catch2 tests
+		- https://github.com/catchorg/Catch2/blob/v2.x/docs/tutorial.md#top
+		- stringSplit: use Sections
+		- itoa
+	- Integrate Catch2 with CI
+	- Documentation per function
