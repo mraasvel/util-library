@@ -26,7 +26,7 @@ namespace util {
 	}
 
 
-std::vector<std::string> splitString(const std::string& input, const std::string& delim_set) {
+std::vector<std::string> stringSplit(const std::string& input, const std::string& delim_set) {
 	std::vector<std::string> lines;
 
 	std::size_t i = _detail_::find_first_not_of_set(input, delim_set);
@@ -49,7 +49,7 @@ LOGIC:
 /*
 create vector containing substrings from input split by delim
 */
-std::vector<std::string> splitString(const std::string& input, char delim) {
+std::vector<std::string> stringSplit(const std::string& input, char delim) {
 	std::vector<std::string> lines;
 
 	size_t i = input.find_first_not_of(delim);

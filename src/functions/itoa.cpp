@@ -1,8 +1,5 @@
 #include <string>
 
-#define BASE_STR "0123456789abcdefghijklmnopqrstuvwxyz"
-#define BASE_STR_UPCASE "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-
 namespace util {
 
 	namespace _detail_ {
@@ -10,6 +7,9 @@ namespace util {
 			if (n >= base) {
 				itoaGetDigits(n / static_cast<unsigned long>(base), base, result);
 			}
+
+			// static const std::string BASE_STR = "0123456789abcdefghijklmnopqrstuvwxyz"
+			static const std::string BASE_STR_UPCASE = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 			char c = BASE_STR_UPCASE [(n % base)];
 			result.push_back(c);

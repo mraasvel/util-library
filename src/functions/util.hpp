@@ -6,8 +6,8 @@
 
 namespace util {
 
-std::vector<std::string> splitString(const std::string& input, const std::string& delim_set);
-std::vector<std::string> splitString(const std::string& input, char delim);
+std::vector<std::string> stringSplit(const std::string& input, const std::string& delim_set);
+std::vector<std::string> stringSplit(const std::string& input, char delim);
 
 std::string itoa(unsigned long n, unsigned int base = 10);
 std::string itoa(unsigned int n, unsigned int base = 10);
