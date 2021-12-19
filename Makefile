@@ -35,12 +35,13 @@ $(DDIR)/$(SUBDIR)%.d: $(SDIR)/%.cpp
 
 # Make header file using script
 $(HNAME): $(HDF) $(HSCRIPT)
-	$(PY) $(HSCRIPT) $(HDF)
+	@$(PY) $(HSCRIPT) $(HDF)
 
 
 # Cleanup
 .PHONY: clean fclean re cleanall
 clean:
+	@echo Cleaning
 	@$(RM) -r $(ODIR)
 	@$(RM) -r $(DDIR)
 fclean: clean

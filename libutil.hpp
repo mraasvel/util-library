@@ -1,4 +1,4 @@
-#ifdef LIBUTIL_HPP
+#ifndef LIBUTIL_HPP
 # define LIBUTIL_HPP
 #ifndef TIMER_HPP
 # define TIMER_HPP

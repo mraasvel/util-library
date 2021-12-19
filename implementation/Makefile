@@ -49,6 +49,7 @@ $(LPATH):
 # Cleanup
 .PHONY: clean fclean re
 clean:
+	@echo Cleaning
 	@$(RM) -r $(ODIR)
 	@$(RM) -r $(DDIR)
 fclean: clean

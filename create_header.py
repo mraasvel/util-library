@@ -7,7 +7,7 @@ FILENAME = "libutil.hpp"
 file = open(FILENAME, 'w')
 
 HEADER_PROTECTION = [
-	"#ifdef " + "LIBUTIL_HPP",
+	"#ifndef " + "LIBUTIL_HPP",
 	"# define " + "LIBUTIL_HPP",
 	"#endif /* " + "LIBUTIL_HPP" + " */"
 ]
