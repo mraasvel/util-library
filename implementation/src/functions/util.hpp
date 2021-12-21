@@ -6,6 +6,15 @@
 
 namespace util {
 
+/*
+Directory, filesystem
+*/
+bool isDirectory(const std::string& dirname);
+std::vector<std::string> directorySearch(const std::string& dirname);
+
+/*
+String manipulation
+*/
 std::vector<std::string> stringSplit(const std::string& input, const std::string& delim_set);
 std::vector<std::string> stringSplit(const std::string& input, char delim);
 
