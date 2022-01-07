@@ -4,7 +4,16 @@ namespace mrlog {
 
 	namespace Detail {
 
-	std::string logfile = "logfile.log";
+	std::string logfile = "mrlog.log";
+
+	std::string generateDate() {
+		char buffer[100];
+		time_t rawtime;
+		time(&rawtime);
+		struct tm* timeinfo = gmtime(&rawtime);
+		strftime(buffer, sizeof(buffer), "%FT%T%z", timeinfo);
+		return std::string(buffer);
+	}
 
 	const char* parseFormat(const char* format) {
 		while (*format != '}') {

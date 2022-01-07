@@ -3,8 +3,7 @@
 
 TEST_CASE("mrlog", "[mrlog]") {
 	mrlog::clearLog();
-	mrlog::setLogFile("logfile.log");
 	mrlog::log("Hello");
 	mrlog::error("{}", "error");
-	mrlog::clearLog();
+	// mrlog::clearLog();
 }

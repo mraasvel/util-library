@@ -56,6 +56,7 @@ void cerr(const char* format, Args&&...args) {
 	namespace Detail {
 
 	extern std::string logfile;
+	std::string generateDate();
 
 	template <typename OutStream>
 	void printLevel(OutStream& out, LogLevel level) {
@@ -80,6 +81,7 @@ void cerr(const char* format, Args&&...args) {
 			mrlog::cerr("mrlog: cannot open logfile: {}", logfile);
 			return;
 		}
+		ofs << generateDate() << ' ';
 		printLevel(ofs, level);
 		processFormat(ofs, format, std::forward<Args>(args)...);
 		ofs.close();
