@@ -4,28 +4,26 @@ namespace mrlog {
 
 	namespace Detail {
 
-	void processFormat(const char* format) {
-		std::cout << format;
-	}
+	std::string logfile = "logfile.log";
 
-	void log(LogLevel level, const char* s) {
-		static const std::string levels[] = {
-			"OFF",
-			"FATAL",
-			"ERROR",
-			"WARN",
-			"INFO",
-			"DEBUG"
-		};
-
-		if (level != LogLevel::OFF) {
-			std::cout << "[" << levels[static_cast<uint16_t>(level)] << "] " << std::endl;
+	const char* parseFormat(const char* format) {
+		while (*format != '}') {
+			if (*format == '\0') {
+				throw std::runtime_error("mrlog: expected '}'");
+			}
+			++format;
 		}
-
-		processFormat(s);
+		return format;
 	}
 
 	}
 
+	void clearLog() {
+		std::ofstream(Detail::logfile, std::ios_base::trunc);
+	}
+
+	void setLogFile(std::string&& file) {
+		Detail::logfile = std::forward<std::string>(file);
+	}
 
 }

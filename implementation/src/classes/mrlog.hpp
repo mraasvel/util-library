@@ -2,6 +2,7 @@
 #define MRLOG_HPP
 
 #include <iostream>
+#include <fstream>
 
 namespace mrlog {
 
@@ -16,35 +17,76 @@ enum class LogLevel : uint16_t {
 
 	namespace Detail {
 
-	void processFormat(const char* format);
+	const char* parseFormat(const char* format);
 
-	template<typename T, typename... Args>
-	void processFormat(const char* format, const T& value, Args&&...args) {
+	template <typename OutStream>
+	void processFormat(OutStream& out, const char* format) {
+		out << format << std::endl;
+	}
+
+	template<typename OutStream, typename T, typename... Args>
+	void processFormat(OutStream& out, const char* format, const T& value, Args&&...args) {
 		while (*format != '\0') {
 			if (*format == '{') {
-				while (*format != '}') {
-					if (*format == '\0') {
-						throw std::runtime_error("mrlog: expected '}'");
-					}
-					++format;
-				}
-				std::cout << value;
-				processFormat(format + 1, std::forward<Args>(args)...);
+				format = parseFormat(format);
+				out << value;
+				processFormat(out, format + 1, std::forward<Args>(args)...);
 				return;
 			} else {
-				std::cout << *format++;
+				out << *format++;
 			}
+		}
+		out << std::endl;
+	}
+
+	}
+
+template <typename...Args>
+void cout(const char* format, Args&&...args) {
+	Detail::processFormat(std::cout, format, std::forward<Args>(args)...);
+}
+
+template <typename...Args>
+void cerr(const char* format, Args&&...args) {
+	Detail::processFormat(std::cerr, format, std::forward<Args>(args)...);
+}
+
+	namespace Detail {
+
+	extern std::string logfile;
+
+	template <typename OutStream>
+	void printLevel(OutStream& out, LogLevel level) {
+		static const std::string levels[] = {
+			"OFF",
+			"fatal",
+			"error",
+			"warn",
+			"info",
+			"debug"
+		};
+
+		if (level != LogLevel::OFF) {
+			out << "[" << levels[static_cast<uint16_t>(level)] << "] ";
 		}
 	}
 
-	void log(LogLevel level, const char* s);
-	template <typename T, typename... Args>
-	void log(LogLevel level, const char* format, const T& value, Args&&...args) {
-		log(level, "");
-		processFormat(format, value, std::forward<Args>(args)...);
+	template <typename... Args>
+	void log(LogLevel level, const char* format, Args&&...args) {
+		std::ofstream ofs(logfile, std::ios_base::app);
+		if (!ofs.is_open()) {
+			mrlog::cerr("mrlog: cannot open logfile: {}", logfile);
+			return;
+		}
+		printLevel(ofs, level);
+		processFormat(ofs, format, std::forward<Args>(args)...);
+		ofs.close();
 	}
 
 	}
+
+void clearLog();
+void setLogFile(std::string&& file);
 
 template <typename... Args>
 void log(const char* format, Args&&...args) {

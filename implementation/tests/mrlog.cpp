@@ -2,6 +2,9 @@
 #include <catch2/catch.hpp>
 
 TEST_CASE("mrlog", "[mrlog]") {
-	// mrlog::log("Hello\n");
-	mrlog::log("H {}\n", 1234);
+	mrlog::clearLog();
+	mrlog::setLogFile("logfile.log");
+	mrlog::log("Hello");
+	mrlog::error("{}", "error");
+	mrlog::clearLog();
 }
