@@ -1,11 +1,11 @@
 #ifndef TIMER_HPP
-# define TIMER_HPP
+#define TIMER_HPP
 
 /*
 NOTE: Min C++11 for chrono
 */
 
-# include <chrono>
+#include <chrono>
 
 namespace util {
 
