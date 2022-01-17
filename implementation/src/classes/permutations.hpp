@@ -127,7 +127,6 @@ public:
 		}
 	}
 
-
 	bool isEnd() const {
 		return done;
 	}
